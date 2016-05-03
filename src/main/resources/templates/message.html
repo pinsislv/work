@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>消息管理</title>
+<link rel="stylesheet" th:href="@{/css/message.css}"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script th:src="@{/js/own/message0.js}"></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<ol class="breadcrumb">
+			<li><a href="#">首页</a></li>
+			<li><a href="#">消息管理</a></li>
+		</ol>
+		<div class="alert alert-danger alert-dismissable"
+			style="display: none" id="warning">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-hidden="true">&times;</button>
+			<lable id="warning-lable"></lable>
+		</div>
+		<button class="btn btn-success" data-toggle="modal"
+			data-target="#myModal">添加</button>
+		<table class="table table-bordered" id="message-table">
+			<thead>
+				<tr>
+					<th>标题</th>
+					<th>内容</th>
+					<th>发布时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+		<!-- 表格内容下的分页 -->
+		<div>
+			<div class="col-sm-4 col-lg-4" style="padding-left: 0px;">
+		<ul style="list-style: none; float:left;padding-left: 0px;">
+			<li class="paging-element">每页显示</li>
+			<li class="paging-number" id="pageSize3">3</li>
+			<li class="paging-number" id="pageSize5">5</li>
+			<li class="paging-number" id="pageSize10">10</li>
+			<li class="paging-element">条记录,</li>
+			<li class="paging-element">共有<b id="totalRecords">3</b>条数据</li>
+		</ul>
+		</div>
+		<div class="col-sm-8 col-lg-8" style="text-align:right">
+			<button id="toLeft">上一页</button>
+			<b id="currPage">1</b>
+			<button id="toRight">下一页</button>
+			<b>到第</b> 
+			<input style="width: 30px; height: 30px; border: 1px solid #CCC" id="toPage-input"></input>
+			<b>页</b>
+			<button id="jumpPage">确定</button>
+		</div>
+		</div>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">添加</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="modal-title" class="col-sm-2 control-label">标题</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="modal-title"
+										placeholder="请输入标题"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="modal-content" class="col-sm-2 control-label">内容</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="modal-content"
+										placeholder="请输入内容"/>
+								</div>
+							</div>
+							
+						</form>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+						<button type="button" class="btn btn-primary" id="add-message">提交更改</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		<!--  -->
+		<div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">修改</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label id="update-id" hidden="true">122</label>
+								<label for="modal-title" class="col-sm-2 control-label">标题</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="update-title"
+										placeholder="请输入标题"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="modal-content" class="col-sm-2 control-label">内容</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="update-content"
+										placeholder="请输入内容"/>
+								</div>
+							</div>
+							
+						</form>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+						<button type="button" class="btn btn-primary" id="update-message">提交更改</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+	</div>
+</body>
+
+</html>

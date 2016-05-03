@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>我们自己的天气预报</title>
+</head>
+<body>
+	<button id="today">今日气温</button>
+	<button id="yesterday">昨日气温</button>
+	<button id="update">更新气温</button>
+	<table>
+		<tr>
+			<td>风向</td>
+			<td id="fengxiang" th:text="${model.fengxiang}"></td>
+		</tr>
+		<tr>
+			<td>风力</td>
+			<td id="fengli"></td>
+		</tr>
+		<tr>
+			<td>最高气温</td>
+			<td id="high"></td>
+		</tr>
+		<tr>
+			<td>天气</td>
+			<td id="type"></td>
+		</tr>
+		<tr>
+			<td>最低气温</td>
+			<td id="low"></td>
+		</tr>
+	</table>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#today").click(function() {
+			$.ajax({
+				"type" : "get",
+				"dataType" : "json",
+				"url" : "/weather/today",
+				"success" : function(rep) {
+					//console.log(rep);
+					$("#fengxiang").html(rep.fengxiang);
+					$("#fengli").html(rep.fengli);
+					$("#high").html(rep.high);
+					$("#type").html(rep.type);
+					$("#low").html(rep.low);
+				}
+			});
+		});
+		$("#yesterday").click(function() {
+			$.ajax({
+				"type" : "get",
+				"dataType" : "json",
+				"url" : "/weather",
+				"success" : function(rep) {
+					//console.log(rep);
+
+					$("#fengxiang").html(rep.fengxiang);
+					$("#fengli").html(rep.fengli);
+					$("#high").html(rep.high);
+					$("#type").html(rep.type);
+					$("#low").html(rep.low);
+				}
+			});
+		});
+		//JSON.stringify(queryData)
+		$("#update").click(function() {
+			var data = {
+				"fengxiang" : "无持续风向",
+				"fengli" : "微风级",
+				"high" : "高温 29℃",
+				"type" : "晴",
+				"low" : "低温 15℃",
+				"date" : "21日星期四",
+				"id": 1,
+			};
+			$.ajax({
+				"type" : "post",
+				"dataType" : "json",
+				"data" : data,
+				"url" : "/weather/update",
+				"success" : function(rep) {
+					$("#fengxiang").html(rep.fengxiang);
+					$("#fengli").html(rep.fengli);
+					$("#high").html(rep.high);
+					$("#type").html(rep.type);
+					$("#low").html(rep.low);
+				}
+			});
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>我们自己的天气预报</title>
+</head>
+<body>
+	<button id="today">今日气温</button>
+	<button id="yesterday">昨日气温</button>
+	<button id="update">更新气温</button>
+	<table id="table-weather">
+		<tr>
+			<th>风力</th>
+			<th>最高气温</th>
+			<th>天气</th>
+			<th>最低气温</th>
+		</tr>
+		<tr>
+			<td>10级</td>
+			<td>20度</td>
+			<td>晴</td>
+			<td>15度</td>
+		</tr>
+	</table>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			"type" : "get",
+			"dataType" : "json",
+			"url" : "/weather/today/yesterday",
+			"success" : function(rep) {
+				var today = rep[0];
+				var yesterday = rep[1];
+				//<tr>
+				//	<td>10级</td>
+				//	<td>20度</td>
+				//	<td>晴</td>
+				//	<td>15度</td>
+				//</tr>
+				var row1= "<tr>";
+				row1+= "<td>"+today.fengli+"</td>";
+				row1+= "<td>"+today.high+"</td>";
+				row1+= "<td>"+today.type+"</td>";
+				row1+= "<td>"+today.low+"</td>";
+				row1+= "</tr>";
+				$("#table-weather").append(row1);
+				var row2= "<tr>";
+				row2+= "<td>"+yesterday.fengli+"</td>";
+				row2+= "<td>"+yesterday.high+"</td>";
+				row2+= "<td>"+yesterday.type+"</td>";
+				row2+= "<td>"+yesterday.low+"</td>";
+				row2+= "</tr>";
+				$("#table-weather").append(row2);
+			}
+		});
+	});
+</script>
+</html>
